@@ -30,10 +30,17 @@
       padding: 1rem 2rem;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
       flex-wrap: wrap;
       color: white;
       position: relative;
+    }
+
+    .header-left, .header-center, .header-right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .logo {
@@ -42,7 +49,6 @@
       align-items: center;
       font-weight: 800;
       font-size: 1.5rem;
-      margin-bottom: 1rem;
       text-decoration: none;
       color: white;
     }
@@ -98,6 +104,7 @@
     }
 
     nav {
+      margin-top: 1.5rem;
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
@@ -232,18 +239,23 @@
 </head>
 <body>
   <header>
-    <a href="index.html" class="logo">
-      <div class="logo-tiles">
-        <span class="tile" data-point="4">H</span>
-        <span class="tile" data-point="1">O</span>
-        <span class="tile" data-point="1">L</span>
+    <div class="header-left"></div>
+    <div class="header-center">
+      <a href="index.html" class="logo">
+        <div class="logo-tiles">
+          <span class="tile" data-point="4">H</span>
+          <span class="tile" data-point="1">O</span>
+          <span class="tile" data-point="1">L</span>
+        </div>
+        <div class="site-name">House of Letters</div>
+      </a>
+    </div>
+    <div class="header-right">
+      <div class="hamburger" onclick="document.querySelector('nav').classList.toggle('active')">
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
-      <div class="site-name">House of Letters</div>
-    </a>
-    <div class="hamburger" onclick="document.querySelector('nav').classList.toggle('active')">
-      <span></span>
-      <span></span>
-      <span></span>
     </div>
     <nav>
       <a href="index.html">Home</a>
