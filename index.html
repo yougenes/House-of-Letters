@@ -104,6 +104,7 @@
     }
 
     nav {
+      display: none;
       margin-top: 1.5rem;
       display: flex;
       flex-wrap: wrap;
@@ -159,7 +160,9 @@
 
     @media (max-width: 768px) {
       .hamburger {
-        display: flex;
+      display: flex;
+      left: 2rem;
+      right: auto;
       }
 
       nav {
@@ -171,7 +174,7 @@
       }
 
       nav.active {
-        display: flex;
+      display: flex !important;
       }
 
       nav a {
