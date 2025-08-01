@@ -30,16 +30,21 @@
       padding: 1rem 2rem;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
+      flex-wrap: wrap;
       color: white;
+      position: relative;
     }
 
     .logo {
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
+      align-items: center;
       font-weight: 800;
       font-size: 1.5rem;
+      margin-bottom: 1rem;
+      text-decoration: none;
+      color: white;
     }
 
     .logo-tiles {
@@ -72,16 +77,36 @@
       font-size: 1rem;
       margin-top: 0.3rem;
       font-weight: 600;
+      color: white;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      position: absolute;
+      top: 1.2rem;
+      right: 2rem;
+    }
+
+    .hamburger span {
+      height: 3px;
+      width: 25px;
+      background: white;
+      margin: 4px 0;
+      border-radius: 2px;
     }
 
     nav {
-      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
     }
 
     nav a {
       color: white;
       text-decoration: none;
-      margin-left: 2rem;
       font-weight: 600;
       transition: all 0.3s ease;
     }
@@ -92,7 +117,11 @@
 
     .dropdown {
       position: relative;
-      display: inline-block;
+    }
+
+    .dropdown > a::after {
+      content: ' ▾';
+      font-size: 0.7rem;
     }
 
     .dropdown-content {
@@ -119,6 +148,28 @@
 
     .dropdown:hover .dropdown-content {
       display: block;
+    }
+
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+      }
+
+      nav {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background: var(--scrabble-green);
+        padding: 1rem 0;
+      }
+
+      nav.active {
+        display: flex;
+      }
+
+      nav a {
+        margin: 0.5rem 1rem;
+      }
     }
 
     .hero {
@@ -177,30 +228,25 @@
       padding: 1rem 2rem;
       font-size: 0.9rem;
     }
-
-    @media (max-width: 600px) {
-      .logo {
-        font-size: 1.2rem;
-      }
-      nav a {
-        margin-left: 1rem;
-        font-size: 0.9rem;
-      }
-    }
   </style>
 </head>
 <body>
   <header>
-    <div class="logo">
+    <a href="index.html" class="logo">
       <div class="logo-tiles">
         <span class="tile" data-point="4">H</span>
         <span class="tile" data-point="1">O</span>
         <span class="tile" data-point="1">L</span>
       </div>
       <div class="site-name">House of Letters</div>
+    </a>
+    <div class="hamburger" onclick="document.querySelector('nav').classList.toggle('active')">
+      <span></span>
+      <span></span>
+      <span></span>
     </div>
     <nav>
-      <a href="home.html">Home</a>
+      <a href="index.html">Home</a>
       <div class="dropdown">
         <a href="#">Scores & Players</a>
         <div class="dropdown-content">
