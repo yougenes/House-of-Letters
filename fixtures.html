@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leaderboard - House of Letters</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --scrabble-green: #007A33;
+      --dark-green: #005826;
+      --light-gray: #f4f4f4;
+      --text-dark: #1a1a1a;
+      --match-bg: #e6f2ec;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--light-gray);
+      color: var(--text-dark);
+    }
+
+    header {
+      background: var(--scrabble-green);
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Scrabble_letter_tiles.jpg/800px-Scrabble_letter_tiles.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-blend-mode: overlay;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: white;
+    }
+
+    .logo {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      font-weight: 800;
+      font-size: 1.5rem;
+    }
+
+    .logo-tiles {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo span.tile {
+      background: white;
+      color: var(--scrabble-green);
+      font-weight: 800;
+      border-radius: 4px;
+      padding: 0.2em 0.4em;
+      margin-right: 0.2em;
+      box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+      position: relative;
+    }
+
+    .tile::after {
+      content: attr(data-point);
+      position: absolute;
+      bottom: 2px;
+      right: 4px;
+      font-size: 0.6rem;
+      font-weight: 600;
+      color: var(--scrabble-green);
+    }
+
+    .site-name {
+      font-size: 1rem;
+      margin-top: 0.3rem;
+      font-weight: 600;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 2rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+    }
+
+    .leaderboard-container {
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .bracket {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .round {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .match {
+      background: white;
+      padding: 0.8rem 1rem;
+      border: 2px solid var(--scrabble-green);
+      border-radius: 8px;
+      width: 180px;
+      text-align: center;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .match:hover {
+      background-color: var(--match-bg);
+      transform: scale(1.03);
+    }
+
+    .match.pending {
+      opacity: 0.6;
+      font-style: italic;
+    }
+
+    .final-round {
+      order: 5;
+      flex: 1 1 100%;
+      display: flex;
+      justify-content: center;
+      margin-top: 3rem;
+    }
+
+    .champion {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--scrabble-green);
+      margin-top: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      padding: 1rem;
+      background-color: var(--scrabble-green);
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <div class="logo-tiles">
+        <span class="tile" data-point="4">H</span>
+        <span class="tile" data-point="1">O</span>
+        <span class="tile" data-point="1">L</span>
+      </div>
+      <div class="site-name">House of Letters</div>
+    </div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="live-scores.html">Live Scores</a>
+      <a href="player-scores.html">Scores</a>
+      <a href="leaderboard.html">Leaderboard</a>
+      <a href="fixtures.html">Rounds & Fixtures</a>
+      <a href="countdown.html">Countdown</a>
+      <a href="bios.html">Player Bios</a>
+      <a href="submit.html">Submit Scores</a>
+      <a href="register.html">Register</a>
+    </nav>
+  </header>
+
+  <section class="leaderboard-container">
+    <h2>Rounds & Fixtures</h2>
+    <div class="bracket">
+      <div class="round">
+        <div class="match" onclick="goToScore('yg-vs-joy')">YG vs Joy</div>
+        <div class="match" onclick="goToScore('joel-vs-chriss')">Joel vs Chriss</div>
+        <div class="match" onclick="goToScore('menelick-vs-joy')">Menelick vs Joy</div>
+        <div class="match" onclick="goToScore('yg-vs-joel')">YG vs Joel</div>
+        <div class="match" onclick="goToScore('mene-vs-joy')">Mene vs Joy</div>
+        <div class="match" onclick="goToScore('chriss-vs-yg')">Chriss vs YG</div>
+        <div class="match" onclick="goToScore('joy-vs-joel')">Joy vs Joel</div>
+        <div class="match" onclick="goToScore('chriss-vs-menelick')">Chriss vs Menelick</div>
+        <div class="match" onclick="goToScore('yg-vs-mene')">YG vs Mene</div>
+        <div class="match" onclick="goToScore('joy-vs-menelick')">Joy vs Menelick</div>
+        <div class="match" onclick="goToScore('chriss-vs-joel')">Chriss vs Joel</div>
+        <div class="match" onclick="goToScore('mene-vs-joel')">Mene vs Joel</div>
+        <div class="match" onclick="goToScore('yg-vs-chriss')">YG vs Chriss</div>
+      </div>
+
+      <div class="round">
+        <div class="match pending">Quarterfinal 1</div>
+        <div class="match pending">Quarterfinal 2</div>
+        <div class="match pending">Quarterfinal 3</div>
+        <div class="match pending">Quarterfinal 4</div>
+      </div>
+
+      <div class="round">
+        <div class="match pending">Semifinal 1</div>
+        <div class="match pending">Semifinal 2</div>
+      </div>
+
+      <div class="round final-round">
+        <div class="match pending">Final</div>
+      </div>
+
+      <div class="champion">
+        🏆 Champion
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 House of Letters by YG. All rights reserved.
+  </footer>
+
+  <script>
+    function goToScore(matchId) {
+      window.location.href = `player-scores.html?match=${matchId}`;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Score Submission Page</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f8fa;
+      padding: 20px;
+      color: #2c3e50;
+    }
+    h1 {
+      text-align: center;
+      background-color: #00695c;
+      color: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .warning {
+      color: #b71c1c;
+      text-align: center;
+      font-weight: bold;
+      margin-top: 10px;
+      margin-bottom: 50px;
+      font-size: 1.1rem;
+      background-color: #ffebee;
+      padding: 14px;
+      border: 2px dashed #c62828;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-top: 30px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    thead {
+      background-color: #004d40;
+      color: #ffffff;
+    }
+    th, td {
+      padding: 12px;
+      text-align: center;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    input[type="text"] {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 6px;
+    }
+    form {
+      margin-top: 40px;
+      background-color: #ffffff;
+      padding: 25px;
+      border-radius: 10px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      margin-top: 20px;
+      background-color: #00796b;
+      color: white;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #004d40;
+    }
+    .start-btn, .add-round-btn {
+      width: auto;
+      padding: 10px 20px;
+      margin: 0 auto 30px;
+      display: block;
+      font-weight: bold;
+    }
+    .start-btn {
+      margin-bottom: 60px;
+      background-color: #388e3c;
+    }
+    .start-btn:hover {
+      background-color: #2e7d32;
+    }
+    .add-round-btn {
+      margin-top: 60px;
+      background-color: #0288d1;
+    }
+    .add-round-btn:hover {
+      background-color: #0277bd;
+    }
+    td input {
+      width: 90%;
+    }
+    .totals-row {
+      font-weight: bold;
+      background-color: #f1f8e9;
+    }
+    .winner {
+      background-color: #a5d6a7 !important;
+    }
+    .loser {
+      background-color: #ef9a9a !important;
+    }
+  </style>
+</head>
+<body>
+  <h1>Point Submission</h1>
+  <div class="warning">Do not rig the game in any manner, swift systems and intelligences have been set to detect any form of inaccurate score entry!</div>
+
+  <button class="start-btn" type="button" onclick="startMatch()">Start Game</button>
+
+  <table id="score-table">
+    <thead>
+      <tr>
+        <th rowspan="2">Round</th>
+        <th colspan="3">Player 1</th>
+        <th colspan="3">Player 2</th>
+      </tr>
+      <tr>
+        <th>Word</th>
+        <th>Points</th>
+        <th>Chips</th>
+        <th>Word</th>
+        <th>Points</th>
+        <th>Chips</th>
+      </tr>
+    </thead>
+    <tbody id="score-body">
+      <tr>
+        <td>1</td>
+        <td><input type="text" placeholder="Word"></td>
+        <td><input type="text" placeholder="Points"></td>
+        <td><input type="text" placeholder="Chips"></td>
+        <td><input type="text" placeholder="Word"></td>
+        <td><input type="text" placeholder="Points"></td>
+        <td><input type="text" placeholder="Chips"></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr class="totals-row" style="display: none;">
+        <td>Totals</td>
+        <td></td>
+        <td id="total-player1">0</td>
+        <td></td>
+        <td></td>
+        <td id="total-player2">0</td>
+        <td></td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <button class="add-round-btn" type="button" onclick="addRound()">Add Round</button>
+
+  <form onsubmit="calculateTotals(); return false;">
+    <label for="match-code">Match Code</label>
+    <input type="text" id="match-code" name="match-code" required />
+
+    <label for="score-sheet-number">Score Sheet Number</label>
+    <input type="text" id="score-sheet-number" name="score-sheet-number" required />
+
+    <label for="score-image">Upload Score Sheet Image</label>
+    <input type="file" id="score-image" name="score-image" accept="image/*" />
+
+    <button type="submit">Submit Score</button>
+  </form>
+
+  <script>
+    let currentRound = 1;
+
+    function addRound() {
+      currentRound++;
+      const table = document.getElementById('score-body');
+      const row = table.insertRow();
+      row.innerHTML = `
+        <td>${currentRound}</td>
+        <td><input type="text" placeholder="Word"></td>
+        <td><input type="text" placeholder="Points"></td>
+        <td><input type="text" placeholder="Chips"></td>
+        <td><input type="text" placeholder="Word"></td>
+        <td><input type="text" placeholder="Points"></td>
+        <td><input type="text" placeholder="Chips"></td>
+      `;
+    }
+
+    function startMatch() {
+      const confirmed = confirm("Are you sure you want to start the match?");
+      if (confirmed) {
+        alert("Match started!");
+      }
+    }
+
+    function calculateTotals() {
+      const player1Inputs = document.querySelectorAll('#score-body tr td:nth-child(3) input');
+      const player2Inputs = document.querySelectorAll('#score-body tr td:nth-child(6) input');
+
+      let total1 = 0;
+      let total2 = 0;
+
+      player1Inputs.forEach(input => {
+        const value = parseInt(input.value);
+        if (!isNaN(value)) total1 += value;
+      });
+
+      player2Inputs.forEach(input => {
+        const value = parseInt(input.value);
+        if (!isNaN(value)) total2 += value;
+      });
+
+      const p1Cell = document.getElementById('total-player1');
+      const p2Cell = document.getElementById('total-player2');
+
+      p1Cell.textContent = total1;
+      p2Cell.textContent = total2;
+
+      // Reset classes
+      p1Cell.classList.remove('winner', 'loser');
+      p2Cell.classList.remove('winner', 'loser');
+
+      if (total1 > total2) {
+        p1Cell.classList.add('winner');
+        p2Cell.classList.add('loser');
+      } else if (total2 > total1) {
+        p2Cell.classList.add('winner');
+        p1Cell.classList.add('loser');
+      }
+
+      document.querySelector('.totals-row').style.display = '';
+      alert("Score submitted and totals calculated!");
+    }
+  </script>
+</body>
+</html>

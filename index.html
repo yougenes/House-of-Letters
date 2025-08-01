@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>House of Letters</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --scrabble-green: #007A33;
+      --dark-green: #005826;
+      --light-gray: #f4f4f4;
+      --text-dark: #1a1a1a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--light-gray);
+      color: var(--text-dark);
+    }
+
+    header {
+      background: var(--scrabble-green);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: white;
+    }
+
+    .logo {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      font-weight: 800;
+      font-size: 1.5rem;
+    }
+
+    .logo-tiles {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo span.tile {
+      background: white;
+      color: var(--scrabble-green);
+      font-weight: 800;
+      border-radius: 4px;
+      padding: 0.2em 0.4em;
+      margin-right: 0.2em;
+      box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+      position: relative;
+    }
+
+    .tile::after {
+      content: attr(data-point);
+      position: absolute;
+      bottom: 2px;
+      right: 4px;
+      font-size: 0.6rem;
+      font-weight: 600;
+      color: var(--scrabble-green);
+    }
+
+    .site-name {
+      font-size: 1rem;
+      margin-top: 0.3rem;
+      font-weight: 600;
+    }
+
+    nav {
+      position: relative;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 2rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+    }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: white;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+      color: var(--scrabble-green);
+      border-radius: 4px;
+    }
+
+    .dropdown-content a {
+      color: var(--scrabble-green);
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown-content a:hover {
+      background-color: var(--light-gray);
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .hero {
+      background: white;
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero button {
+      background: var(--scrabble-green);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .hero button:hover {
+      background: var(--dark-green);
+    }
+
+    .tiles-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+    }
+
+    .tile-box {
+      background: white;
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .tile-box h3 {
+      margin-bottom: 0.5rem;
+      color: var(--scrabble-green);
+    }
+
+    footer {
+      background: var(--dark-green);
+      color: white;
+      text-align: center;
+      padding: 1rem 2rem;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 600px) {
+      .logo {
+        font-size: 1.2rem;
+      }
+      nav a {
+        margin-left: 1rem;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <div class="logo-tiles">
+        <span class="tile" data-point="4">H</span>
+        <span class="tile" data-point="1">O</span>
+        <span class="tile" data-point="1">L</span>
+      </div>
+      <div class="site-name">House of Letters</div>
+    </div>
+    <nav>
+      <a href="home.html">Home</a>
+      <div class="dropdown">
+        <a href="#">Scores & Players</a>
+        <div class="dropdown-content">
+          <a href="live-scores.html">Live Scores</a>
+          <a href="player-scores.html">Player Scores</a>
+          <a href="bios.html">Player Bios</a>
+        </div>
+      </div>
+      <a href="leaderboard.html">Leaderboard</a>
+      <a href="fixtures.html">Rounds & Fixtures</a>
+      <a href="countdown.html">Countdown</a>
+      <a href="submit.html">Submit Scores</a>
+      <a href="register.html">Register</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>The Ultimate Inter Family Scrabble Tournament</h1>
+    <p>Play. Compete. Dominate the board — One word at a time.</p>
+    <a href="register.html"><button>Sign Up for Tournament</button></a>
+  </section>
+
+  <section class="tiles-section">
+    <div class="tile-box">
+      <h3>Top Players</h3>
+      <p>See who's leading in today's word battles.</p>
+    </div>
+    <div class="tile-box">
+      <h3>Word Checker</h3>
+      <p>Not sure about a word? Validate it instantly.</p>
+    </div>
+    <div class="tile-box">
+      <h3>Recent Scores</h3>
+      <p>Track match progress and check your history.</p>
+    </div>
+    <div class="tile-box">
+      <h3>Scrabble Tips</h3>
+      <p>Level up your vocabulary and board strategy.</p>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 House of Letters. All rights reserved.
+  </footer>
+</body>
+</html>
